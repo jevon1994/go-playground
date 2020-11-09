@@ -1,3 +1,0 @@
-package linear_list
-
-

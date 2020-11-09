@@ -1,4 +1,4 @@
-module demo
+module go-palyground
 
 go 1.15
 

@@ -1,4 +1,4 @@
-package linear_list
+package linked
 
 import "fmt"
 
@@ -42,7 +42,7 @@ func (l *Linkedlist) TailAdd(val interface{}) {
 	l.size++
 }
 
-func (l *Linkedlist) HeadDel() interface{}{
+func (l *Linkedlist) HeadDel() interface{} {
 	if l.head == nil {
 		return l.head
 	}
@@ -52,30 +52,29 @@ func (l *Linkedlist) HeadDel() interface{}{
 	return tem.val
 }
 
-
-func (l *Linkedlist) tailDel() interface{}{
+func (l *Linkedlist) tailDel() interface{} {
 	// 检查头结点
-	if l.head == nil{
+	if l.head == nil {
 		return l.head.val
 	}
 	// 是否为空表
-	if l.head.next == nil{
+	if l.head.next == nil {
 		return l.HeadDel()
 	}
 	// 从尾部删除元素
 	tem := l.head
-	for ; tem.next.next != nil ; tem = tem.next {
-		
+	for ; tem.next.next != nil; tem = tem.next {
+
 	}
 	val := tem.next.val
 	tem.next = nil
 	l.size--
 	return val
 }
-func (l *Linkedlist) Reverse(){
+func (l *Linkedlist) Reverse() {
 	var pre, rNext *Node
 	cur := l.head
-	for cur != nil{
+	for cur != nil {
 		// 自定义 next
 		rNext = cur.next
 		// 自定义 头节点
@@ -87,8 +86,8 @@ func (l *Linkedlist) Reverse(){
 	l.head = pre
 }
 
-func (l *Linkedlist) PrintOut(){
-	for a := l.head; a != nil ; a = a.next {
-		fmt.Printf("%s \n",a.val)
+func (l *Linkedlist) PrintOut() {
+	for a := l.head; a != nil; a = a.next {
+		fmt.Printf("%s \n", a.val)
 	}
 }
