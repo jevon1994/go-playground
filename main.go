@@ -1,23 +1,24 @@
 package main
 
 import (
-	"demo/data-structures/linear-list"
 	"fmt"
+	"go-palyground/datastructures/linearlist/linkedlist"
 	"log"
 	"math"
 	"runtime"
 )
+
 func main() {
 	//m := map[string]int{"1": 1,"2": 2}
 	mp2 := make(map[int]*[]int)
-	sub := []int{1,2,3,4}
+	sub := []int{1, 2, 3, 4}
 	mp2[1] = &sub
-	delete(mp2,1)
+	delete(mp2, 1)
 	fmt.Print(mp2)
 }
 
 func linkedlist_test() {
-	linkedlist := linear_list.EmptyLinkedlist()
+	linkedlist := linkedlist.EmptyLinkedlist()
 	linkedlist.TailAdd("1")
 	linkedlist.TailAdd("2")
 	linkedlist.TailAdd("3")
@@ -40,12 +41,12 @@ func slice_test() {
 	//fmt.Print(b)'
 }
 
-func doSth(a *int){
+func doSth(a *int) {
 	b := a
 
-	fmt.Printf("b: %s \n",b)
+	fmt.Printf("b: %s \n", b)
 	c := &a
-	fmt.Printf("c: %s \n",c)
+	fmt.Printf("c: %s \n", c)
 }
 
 func returnVal() {
@@ -75,23 +76,24 @@ func switch_test() {
 	}
 }
 
-
 func mySqrt(f float64) (v float64, ok bool) {
-	if f < 0 { return } // error case
-	return math.Sqrt(f),true
+	if f < 0 {
+		return
+	} // error case
+	return math.Sqrt(f), true
 }
-func init(){
-	fmt.Printf("%s \n","===============================")
+func init() {
+	fmt.Printf("%s \n", "===============================")
 }
 
-func defertest(){
+func defertest() {
 	i := 0
-	defer fmt.Printf("===========> %d \n",i)
+	defer fmt.Printf("===========> %d \n", i)
 	i++
 	return
 }
 
-func debug_test(){
+func debug_test() {
 	where := func() {
 		_, file, line, _ := runtime.Caller(1)
 		log.Printf("%s:%d", file, line)

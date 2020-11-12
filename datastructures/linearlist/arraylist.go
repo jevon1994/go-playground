@@ -1,10 +1,11 @@
-package linear_list
+package linearlist
 
 import "errors"
 
 var initcapacity = 10
 var defaultCapacity = 10
-// 1. empty linear-list
+
+// 1. empty linearlist
 type ArrayList struct {
 	size     int
 	capacity int
@@ -16,10 +17,10 @@ type ArrayList struct {
 //	add(index int, ele interface{})
 //}
 
-
-func emptylist() *ArrayList{
+func emptylist() *ArrayList {
 	return &ArrayList{}
 }
+
 // 2. get by index
 func (l *ArrayList) get(index int) (interface{}, error) {
 	err := l.checkIndex(index)
