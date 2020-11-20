@@ -31,10 +31,10 @@ func (s *Stack) Push(val interface{}) {
 
 func (s *Stack) Pop() *Node {
 	top := s.Top
-	next := top.Next
 	if top == nil {
 		return top
 	}
+	next := top.Next
 	s.Top = next
 	s.Size--
 	return top
@@ -45,8 +45,7 @@ func (s *Stack) GetTop() *Node {
 }
 
 func (s *Stack) Iterate() {
-	top := s.Top
-	temp := top
+	temp := s.Top
 	for {
 		if temp.Next == nil {
 			fmt.Print(temp.Val, "\n")

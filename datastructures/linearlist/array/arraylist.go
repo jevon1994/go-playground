@@ -1,4 +1,4 @@
-package linearlist
+package array
 
 import "errors"
 

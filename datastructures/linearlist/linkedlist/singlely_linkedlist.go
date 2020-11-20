@@ -91,3 +91,6 @@ func (l *Linkedlist) PrintOut() {
 		fmt.Printf("%s \n", a.val)
 	}
 }
+func init() {
+	fmt.Printf("%s \n", "====================11===========")
+}

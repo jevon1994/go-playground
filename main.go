@@ -10,11 +10,12 @@ import (
 
 func main() {
 	//m := map[string]int{"1": 1,"2": 2}
-	mp2 := make(map[int]*[]int)
-	sub := []int{1, 2, 3, 4}
-	mp2[1] = &sub
-	delete(mp2, 1)
-	fmt.Print(mp2)
+	//mp2 := make(map[int]*[]int)
+	//sub := []int{1, 2, 3, 4}
+	//mp2[1] = &sub
+	//delete(mp2, 1)
+	//fmt.Print(mp2)
+	linkedlist_test()
 }
 
 func linkedlist_test() {
