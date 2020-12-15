@@ -16,6 +16,9 @@ func main() {
 	//delete(mp2, 1)
 	//fmt.Print(mp2)
 	linkedlist_test()
+
+	go fmt.Print("1")
+
 }
 
 func linkedlist_test() {
