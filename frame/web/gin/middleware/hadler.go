@@ -7,7 +7,7 @@ import (
 
 func Handler() gin.HandlerFunc {
 	return func(context *gin.Context) {
-		fmt.Printf("%s \n", "do something!")
+		fmt.Printf("%s \n", "po something!")
 	}
 
 }

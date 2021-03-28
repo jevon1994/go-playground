@@ -61,6 +61,64 @@ func (t *Tree) Insert(val int) {
 }
 
 /*
+1.叶节点
+2.只有一个孩子节点, 父节点指向要删除的孩子节点
+3.有左右两颗子树,右子树最小节点或者左子树最大元素代替被删除节点
+*/
+func (t *Tree) Delete(val int, n *TreeNode) *TreeNode {
+	var tmp *TreeNode
+	if val < n.Val {
+		n.Left = t.Delete(val, n.Left)
+	} else if val > n.Val {
+		n.Right = t.Delete(val, n.Right)
+	} else { // 找到被删除节点
+		if n.Right != nil && n.Left != nil { // 左右两个子树
+			tmp = t.FindMin(n.Right) // 右子树最小值替代
+			n.Val = tmp.Val
+			t.Delete(val, n.Right)
+		} else { // 只有一个孩子节点或者没有孩子
+			if n.Right == nil && n.Left == nil {
+				n = nil
+			} else if n.Left != nil && n.Right == nil {
+				n = n.Left
+			} else if n.Left == nil && n.Right != nil {
+				n = n.Right
+			}
+		}
+	}
+	return n
+}
+
+/*----------------------------------- BFS Travesal--------------------------------------*/
+// Levelorder
+func (t *Tree) BFSTravesal(node *TreeNode) {
+	if node == nil {
+		return
+	}
+	q := list.New()
+	// 1
+	q.PushBack(node)
+	for q.Len() != 0 {
+		//2
+		head := q.Remove(q.Front())
+		tempNode := head.(*TreeNode)
+		fmt.Print(tempNode.Val, "\n")
+		if tempNode.Left != nil {
+			//3
+			q.PushBack(tempNode.Left)
+		}
+
+		if tempNode.Right != nil {
+			//4
+			q.PushBack(tempNode.Right)
+		}
+		if q.Len() == 0 {
+			fmt.Println()
+		}
+	}
+}
+
+/*
 	程序调用通过入栈来实现先调用后返回,递归遍历是系统通过栈实现, 非递归是自己通过栈实现遍历
 */
 // recursion
@@ -150,41 +208,7 @@ func (tree *Tree) PostOrder(t *TreeNode) {
 	}
 }
 
-func IsEmpty() {
-
-}
-
-// Levelorder
-func (t *Tree) BFSTravesal(node *TreeNode) {
-	if node == nil {
-		return
-	}
-	q := list.New()
-	// 1
-	q.PushBack(node)
-	for q.Len() != 0 {
-		//2
-		head := q.Remove(q.Front())
-		tempNode := head.(*TreeNode)
-		fmt.Print(tempNode.Val, "\n")
-		if tempNode.Left != nil {
-			//3
-			q.PushBack(tempNode.Left)
-		}
-
-		if tempNode.Right != nil {
-			//4
-			q.PushBack(tempNode.Right)
-		}
-
-		if q.Len() == 0 {
-			fmt.Println()
-		}
-
-	}
-
-}
-
+/* DFS Travesal */
 func (t *Tree) DFSTravesal(root *TreeNode) {
 	if root == nil {
 		return
@@ -198,6 +222,7 @@ func (t *Tree) DFSTravesal(root *TreeNode) {
 	t.DFSTravesal(root.Right)
 }
 
+/*--------------------------------------------  Count  ---------------------------------------------------*/
 // count
 func (t *Tree) CountNodes(node *TreeNode) int {
 	if node == nil {
@@ -242,3 +267,33 @@ func (t *Tree) CountByLevel(node *TreeNode, level int) int {
 }
 
 // find
+func (t *Tree) Find(val int) *TreeNode {
+	if t == nil {
+		return nil
+	}
+	n := t.Root
+	for {
+		if val < n.Val {
+			n = n.Left
+		} else if val > n.Val {
+			n = n.Right
+		} else if val == n.Val {
+			return n
+		}
+	}
+
+}
+
+func (t *Tree) FindMin(node *TreeNode) *TreeNode {
+	for node.Left != nil {
+		node = node.Left
+	}
+	return node
+}
+
+func (t *Tree) FindMax(node *TreeNode) *TreeNode {
+	for node.Right != nil {
+		node = node.Right
+	}
+	return node
+}

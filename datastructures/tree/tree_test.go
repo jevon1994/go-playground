@@ -24,4 +24,5 @@ func TestTree(t *testing.T) {
 	//tree.BFSTravesal(tree.Root)
 	//fmt.Print("dfs-----", "\n")
 	//tree.DFSTravesal(tree.Root)
+	fmt.Print(tree.FindMax(tree.Root).Val)
 }

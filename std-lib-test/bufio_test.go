@@ -22,12 +22,12 @@ func TestReader(t *testing.T) {
 	//
 	//	}
 	//}
-	//defer func() {
-	//	if err := recover(); err != nil {
-	//		fmt.Print("====================")
-	//	}
-	//}()
-	//aPanic(1)
+	defer func() {
+		if err := recover(); err != nil {
+			fmt.Print("====================")
+		}
+	}()
+	aPanic(1)
 
 }
 func aPanic(a int) {

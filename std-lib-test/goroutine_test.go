@@ -12,30 +12,33 @@ func TestRoutine(t *testing.T) {
 	//go recv(ch)
 	//go switchAsync(ch)
 	//time.Sleep(1e6)
-	a := <- future(1)
-	fmt.Print(a,time.Now().Nanosecond(),"\n")
-	b := <- future(2)
-	fmt.Print(b,time.Now().Nanosecond(),"\n")
+	a := <-future(1)
+	fmt.Print(a, time.Now().Nanosecond(), "\n")
+	b := <-future(2)
+	fmt.Print(b, time.Now().Nanosecond(), "\n")
 	tick()
 }
 
-
-func future(a int) chan int{
+func future(a int) chan int {
 	fu := make(chan int)
 	go func() {
-		fu <- a*a
+		fu <- a * a
 	}()
 	return fu
 }
 
-func tick(){
+func tick() {
 	ch := make(chan int, 1)
-	go func() { for { ch <- 1 } } ()
+	go func() {
+		for {
+			ch <- 1
+		}
+	}()
 L:
 	for {
 		select {
 		case <-ch:
-			// do something
+			// po something
 		case <-time.After(1):
 			// call timed out
 			break L
