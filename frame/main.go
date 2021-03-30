@@ -13,6 +13,7 @@ func main() {
 	engine.Run()
 }
 func Configure(app *gin.Engine) {
+
 	//controller declare
 	//inject declare
 	//Injection

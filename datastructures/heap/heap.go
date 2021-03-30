@@ -3,7 +3,7 @@ package heap
 import "fmt"
 
 type Heap struct {
-	data     []int
+	Data     []int
 	Size     int
 	Capacity int
 }
@@ -18,11 +18,11 @@ func NewHeap(cap int) *Heap {
 func (h *Heap) Insert(val int) {
 	h.Size += 1
 	i := h.Size
-	//i  数组下标
-	for ; h.data[i/2] < val; i /= 2 {
-		h.data[i] = h.data[i/2]
+	//向上找比 val 小的节点
+	for ; h.Data[i/2] < val; i /= 2 {
+		h.Data[i] = h.Data[i/2] // 比 val 小的放到下面
 	}
-	h.data[i] = val
+	h.Data[i] = val // 找到 data[i/2] 比 val 大的替换
 }
 
 func (h *Heap) IsFull() bool {
@@ -35,34 +35,35 @@ func (h *Heap) IsEmpty() bool {
 
 func (h *Heap) DeleteMax() int {
 	var parent, child, Max, tmp int
-	Max = h.data[1]
-	tmp = h.data[h.Size]
+	Max = h.Data[1]
+	tmp = h.Data[h.Size]
 	h.Size -= 1
 	//是否有左子树
 	for parent = 1; parent*2 <= h.Size; parent = child {
 		child = parent * 2
 		//child 不为当前最后一个结点，即 parent 有右孩子结点
-		if child != h.Size && h.data[child+1] > h.data[child] {
+		if child != h.Size && h.Data[child+1] > h.Data[child] {
 			child += 1 // 返回左右孩子较大的
 		}
 		// 最后元素都比左右孩子小, 不需要调整
-		if tmp >= h.data[child] {
+		if tmp >= h.Data[child] {
 			break
 		} else {
 			//否则把大的孩子提回来
-			h.data[parent] = h.data[child]
+			h.Data[parent] = h.Data[child]
 		}
 	}
-	h.data[parent] = tmp
+	h.Data[parent] = tmp
 	fmt.Print("delete max : ", Max, "\n")
 	return Max
 }
 
+//levelorder
 func (h *Heap) BFSTravesal() {
 	for i := 1; i <= h.Size; i++ {
-		if h.data[i] == 0 {
+		if h.Data[i] == 0 {
 			break
 		}
-		fmt.Print(h.data[i], "\n")
+		fmt.Print(h.Data[i], "\n")
 	}
 }

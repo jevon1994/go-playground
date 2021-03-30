@@ -5,6 +5,17 @@ import (
 	"testing"
 )
 
+func TestHuffManTree(t *testing.T) {
+	heap := NewMinHeap()
+	heap.InsertTree(&HuffManTreeNode{Weight: 1})
+	heap.InsertTree(&HuffManTreeNode{Weight: 2})
+	heap.InsertTree(&HuffManTreeNode{Weight: 3})
+	heap.InsertTree(&HuffManTreeNode{Weight: 4})
+	heap.InsertTree(&HuffManTreeNode{Weight: 5})
+	tree := heap.NewHuffManTree()
+	tree.PreTravsel()
+}
+
 func TestTree(t *testing.T) {
 	tree := NewTree()
 	tree.Root = NewTreeNode(4)
@@ -25,4 +36,5 @@ func TestTree(t *testing.T) {
 	//fmt.Print("dfs-----", "\n")
 	//tree.DFSTravesal(tree.Root)
 	fmt.Print(tree.FindMax(tree.Root).Val)
+
 }
