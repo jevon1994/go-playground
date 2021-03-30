@@ -3,16 +3,11 @@ package main
 import (
 	"fmt"
 	messagebus "github.com/vardius/message-bus"
-	"reflect"
 	"sync"
 )
 
 var bus = messagebus.New(100)
 var wg sync.WaitGroup
-
-func typeof(v interface{}) string {
-	return reflect.TypeOf(v).String()
-}
 
 func main() {
 	//wg.Add(2)
