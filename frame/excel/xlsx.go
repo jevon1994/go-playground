@@ -9,9 +9,10 @@ func main() {
 	NewFile()
 }
 
+var fd string = "test.xlsx"
+
 func ReadFile() {
-	filePath := "frame/excel/test.xlsx"
-	file, err := xlsx.OpenFile(filePath) // 打开一个文件
+	file, err := xlsx.OpenFile(fd) // 打开一个文件
 	if err != nil {
 		fmt.Println(err)
 		return
@@ -37,6 +38,8 @@ func NewFile() {
 	row := sheet.AddRow()
 	cell := row.AddCell()
 	cell.Value = "我是一个表格"
-	err = file.Save("frame/excel/test.xlsx")
+	c := sheet.Cell(0, 0)
+	c.Value = "实例"
+	err = file.Save(fd)
 	fmt.Println(err)
 }

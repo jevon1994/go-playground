@@ -20,6 +20,7 @@ require (
 	github.com/vardius/message-bus v1.1.5
 	golang.org/x/crypto v0.0.0-20201012173705-84dcc777aaee // indirect
 	golang.org/x/sys v0.0.0-20201015000850-e3ed0017c211 // indirect
+	golang.org/x/tools v0.0.0-20190524140312-2c0ae7006135
 	google.golang.org/protobuf v1.25.0 // indirect
 	gopkg.in/yaml.v2 v2.3.0 // indirect
 )
