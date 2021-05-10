@@ -1,6 +1,9 @@
 package main
 
-import "fmt"
+import (
+	"fmt"
+	"testing"
+)
 
 // 抽象观察者
 type IObserver interface {
@@ -34,7 +37,7 @@ func (s *Subject) NotifyObservers() {
 	}
 }
 
-func main() {
+func TestObserver(t *testing.T) {
 	// 创建被观察者
 	s := new(Subject)
 	// 创建观察者
