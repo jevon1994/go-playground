@@ -4,7 +4,7 @@ import "fmt"
 
 type Graph struct {
 	vertex []int   //顶点表: 存顶点的数据
-	dType  [][]int //邻接矩阵: 类型-顶点/边
+	dType  [][]int //邻接矩阵: 类型-顶点/边, [行][列], 行: 出度,列: 入度
 	vCount int     //图的顶点数
 	eCount int     //边数
 }
@@ -55,7 +55,7 @@ func BuildGraph(vCount int, edge []Edge) *Graph {
 func (g *Graph) InsertEdge(e Edge) {
 	//边<V1,V2>
 	g.dType[e.V1][e.V2] = e.Weight
-	// 无向图
+	// 无向图 需要插入 <V2,V1>
 	g.dType[e.V2][e.V1] = e.Weight
 }
 
