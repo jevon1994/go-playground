@@ -59,14 +59,37 @@ func (g *Graph) InsertEdge(e Edge) {
 	g.dType[e.V2][e.V1] = e.Weight
 }
 
-//
-//func (g *Graph) BFS(v Vertex){
-//
-//}
-////树的先序遍历
-//func (g *Graph) DFS(v Vertex){
-//
-//}
+//层序遍历, 队列
+func (g *Graph) BFS(v Vertex) {
+	visited[v] = true
+	q.push(v)
+	while(!q.isEmpty())
+	{
+		v = q.pop()
+		for (v
+		的每个邻接点
+		w){
+		if !visited[w] {
+			visited[w] = true
+			q.push(w)
+		}
+	}
+	}
+}
+
+//树的先序遍历
+func (g *Graph) DFS(v Vertex) {
+	visited[v] = true
+	// 如果都访问过了, 相当于原路返回, 即是堆栈
+	for (v
+	的每个邻接点
+	w)
+	if !visited[w] {
+		// 递归 == 系统实现堆栈
+		g.DFS(w)
+	}
+}
+
 //
 //func (g *Graph) MST(){
 //
