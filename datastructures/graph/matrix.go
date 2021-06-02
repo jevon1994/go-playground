@@ -60,15 +60,13 @@ func (g *Graph) InsertEdge(e Edge) {
 }
 
 //层序遍历, 队列
-func (g *Graph) BFS(v Vertex) {
+/*func (g *Graph) BFS(v Vertex) {
 	visited[v] = true
 	q.push(v)
 	while(!q.isEmpty())
 	{
 		v = q.pop()
-		for (v
-		的每个邻接点
-		w){
+		for (v的每个邻接点w){
 		if !visited[w] {
 			visited[w] = true
 			q.push(w)
@@ -88,7 +86,7 @@ func (g *Graph) DFS(v Vertex) {
 		// 递归 == 系统实现堆栈
 		g.DFS(w)
 	}
-}
+}*/
 
 //
 //func (g *Graph) MST(){
