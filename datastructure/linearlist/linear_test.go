@@ -1,8 +1,8 @@
 package linearlist
 
 import (
-	"go-palyground/datastructures/linearlist/queue"
-	"go-palyground/datastructures/linearlist/stack"
+	"go-palyground/datastructure/linearlist/queue"
+	"go-palyground/datastructure/linearlist/stack"
 	"testing"
 )
 

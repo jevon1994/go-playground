@@ -2,7 +2,7 @@ package main
 
 import (
 	"fmt"
-	"go-palyground/datastructures/linearlist/linkedlist"
+	"go-palyground/datastructure/linearlist/linkedlist"
 	"log"
 	"math"
 	"reflect"
