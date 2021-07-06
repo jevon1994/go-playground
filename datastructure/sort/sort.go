@@ -47,43 +47,47 @@ func shell(arr []int) {
 	}
 }
 
-//1. 找主元分割, left < right, 一
-//2. 递归两边
-func partion(arr []int, left, right int) int {
+func Quick(arr []int, left, right int) {
+	if left >= right {
+		return
+	}
+	//1. 找主元分割
 	var (
 		i     = left
 		j     = right
-		pivot = arr[left]
+		pivot = arr[i]
 	)
-
-	for i != j {
-		for i < j && arr[j] >= pivot {
+	for i < j {
+		// 由右向左 小于等于pivot的 向左移
+		for i < j && pivot <= arr[j] {
 			j--
 		}
+		// 小于 pivot 换到左边
 		if i < j {
-			arr[i] = arr[j]
-			i += 1
-		}
-		for i < j && arr[i] <= pivot {
+			swap(arr, i, j)
 			i++
 		}
+		// 由右向左 大于等于pivot的 向左移
+		for i < j && pivot >= arr[i] {
+			i++
+		}
+		// 大于 pivot 换到右边
 		if i < j {
-			arr[j] = arr[i]
-			j -= 1
+			swap(arr, j, i)
+			j--
 		}
 	}
 	arr[i] = pivot
-	return pivot
-}
-
-func Quick(arr []int, left, right int) {
-	i := partion(arr, left, right)
+	//2. 递归两边
 	Quick(arr, left, i-1)
 	Quick(arr, i+1, right)
 }
-
-//1. 拆分
-//2. 合并
+func swap(arr []int, a, b int) {
+	tmp := 0
+	tmp = arr[a]
+	arr[a] = arr[b]
+	arr[b] = tmp
+}
 func merge(arr, tmp []int, left, right, rightEnd int) {
 	leftEnd := right - 1
 	t := left
@@ -118,9 +122,11 @@ func merge(arr, tmp []int, left, right, rightEnd int) {
 func Msort(arr, tmp []int, left, rightEnd int) {
 	center := 0
 	if left < rightEnd {
+		//1. split
 		center = (left + rightEnd) / 2
 		Msort(arr, tmp, left, center)
 		Msort(arr, tmp, center+1, rightEnd)
+		//2.merge
 		merge(arr, tmp, left, center+1, rightEnd)
 	}
 }

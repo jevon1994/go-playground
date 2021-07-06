@@ -33,3 +33,15 @@ func TestReflectNew(t *testing.T) {
 	value := reflect.New(elem)
 	fmt.Println(value)
 }
+
+func TestReflectSlice(t *testing.T) {
+	var v *int
+	of := reflect.TypeOf(v)
+	sliceType := reflect.SliceOf(of)
+	emptySlice := reflect.MakeSlice(sliceType, 1, 1)
+	ints := emptySlice.Interface().([]*int)
+	for i := 0; i < 2; i++ {
+		ints = append(ints, &i)
+	}
+	fmt.Println(ints)
+}

@@ -22,13 +22,13 @@ func Test_shell(t *testing.T) {
 	fmt.Println(arr)
 }
 
-func Test_quick(t *testing.T) {
-	Quick(arr, 0, len(arr)-1)
-	fmt.Println(arr)
-}
-
 func Test_Msort(t *testing.T) {
 	ints := make([]int, len(arr))
 	Msort(arr, ints, 0, len(arr)-1)
+	fmt.Println(arr)
+}
+
+func Test_quick(t *testing.T) {
+	Quick(arr, 0, len(arr)-1)
 	fmt.Println(arr)
 }
