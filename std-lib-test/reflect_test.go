@@ -45,3 +45,37 @@ func TestReflectSlice(t *testing.T) {
 	}
 	fmt.Println(ints)
 }
+
+type Options struct {
+	t *time.Time
+}
+
+type TestDto struct {
+	Options
+}
+
+type Option interface {
+	apply(*Options)
+}
+
+func (e emptyOption) apply(options *Options) {
+	e.apply(options)
+}
+
+type emptyOption struct{}
+
+type funcOption struct {
+	f func(*Options)
+}
+
+func NewFuncOption(f func(*Options)) *funcOption {
+	return &funcOption{
+		f: f,
+	}
+}
+
+func TestValueDate(t *testing.T) {
+	t2 := new(TestStrc)
+	of := reflect.ValueOf(t2)
+	fmt.Println(of)
+}

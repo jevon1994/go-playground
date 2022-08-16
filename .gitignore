@@ -8,7 +8,10 @@
 go.sum
 # Test binary, built with `go test -c`
 *.test
-
+frame/grpc/
+frame/grpc/examples
+frame/rk/rk-boot/docs
+frame/rk/rk-grpc/api/gen
 # Output of the go coverage tool, specifically when used with LiteIDE
 *.out
 

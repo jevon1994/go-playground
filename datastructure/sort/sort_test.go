@@ -8,17 +8,17 @@ import (
 var arr = []int{2, 4, 5, 9, 3, 1, 0, 6}
 
 func Test_Bubble(t *testing.T) {
-	bubble(arr)
+	Bubble(arr)
 	fmt.Println(arr)
 }
 
 func Test_insertion(t *testing.T) {
-	insertion(arr)
+	Insertion(arr)
 	fmt.Println(arr)
 }
 
 func Test_shell(t *testing.T) {
-	shell(arr)
+	Shell(arr)
 	fmt.Println(arr)
 }
 
