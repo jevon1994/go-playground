@@ -1,0 +1,21 @@
+---
+gin:
+  - name: rkhmes
+    port: 8080
+    enabled: true
+    prom:
+      enabled: true
+    middleware:
+      meta:
+        enabled: true
+      logging:
+        enabled: true
+      trace:
+        enabled: true
+hmes:
+  host: 172.xxx
+  port:
+  callback-type: url
+
+
+

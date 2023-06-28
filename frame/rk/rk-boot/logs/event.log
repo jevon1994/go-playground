@@ -1,0 +1,34 @@
+------------------------------------------------------------------------
+endTime=2023-06-21T11:45:58.924359+08:00
+startTime=2023-06-21T11:45:58.924083+08:00
+elapsedNano=276257
+timezone=CST
+ids={"eventId":"6db24492-4637-4c90-894b-182dbc13c0a0"}
+app={"appName":"rk","appVersion":"local","entryName":"rk","entryType":"GinEntry"}
+env={"arch":"amd64","domain":"*","hostname":"Jevons-MacBook.local","localIP":"192.168.20.195","os":"darwin"}
+payloads={"apiMethod":"GET","apiPath":"/v1/greeter","apiProtocol":"HTTP/1.1","apiQuery":"","userAgent":"Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/113.0.0.0 Safari/537.36"}
+counters={}
+pairs={}
+timing={}
+remoteAddr=localhost:54114
+operation=/v1/greeter
+resCode=200
+eventStatus=Ended
+EOE
+------------------------------------------------------------------------
+endTime=2023-06-21T11:45:58.989543+08:00
+startTime=2023-06-21T11:45:58.989535+08:00
+elapsedNano=8941
+timezone=CST
+ids={"eventId":"f692b693-4655-4695-b621-c0b9125e6c22"}
+app={"appName":"rk","appVersion":"local","entryName":"rk","entryType":"GinEntry"}
+env={"arch":"amd64","domain":"*","hostname":"Jevons-MacBook.local","localIP":"192.168.20.195","os":"darwin"}
+payloads={"apiMethod":"GET","apiPath":"/favicon.ico","apiProtocol":"HTTP/1.1","apiQuery":"","userAgent":"Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/113.0.0.0 Safari/537.36"}
+counters={}
+pairs={}
+timing={}
+remoteAddr=localhost:54114
+operation=/favicon.ico
+resCode=404
+eventStatus=Ended
+EOE
