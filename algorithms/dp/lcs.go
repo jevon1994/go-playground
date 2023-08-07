@@ -27,7 +27,7 @@ func lcsDp(x []byte, y []byte, m int, n int, dp map[string]int) int {
 	var key = fmt.Sprintf("%s|%s", string(x[:]), string(y[:]))
 	exists := dp[key]
 
-	if exists == 0 {
+	if exists != 0 {
 		return dp[key]
 	}
 	// until a = b , total count

@@ -3,8 +3,11 @@ package main
 import (
 	"fmt"
 	"go-playground/datastructure/linearlist/linkedlist"
+	"io/ioutil"
 	"log"
 	"math"
+	"os"
+	"path/filepath"
 	"reflect"
 	"runtime"
 )
@@ -21,7 +24,17 @@ func main() {
 	//blank := isBlank(reflect.ValueOf(a))
 	fmt.Print(bool)
 	//go fmt.Print("1")
+	loadKubeConfig()
+}
 
+func loadKubeConfig() {
+	abs, _ := filepath.Abs("std-lib-test")
+	dir, _ := ioutil.ReadDir(abs)
+	for _, f := range dir {
+		s, _ := filepath.Abs(f.Name())
+		file, _ := os.ReadFile(s)
+		fmt.Println(file)
+	}
 }
 
 func isBlank(value reflect.Value) bool {

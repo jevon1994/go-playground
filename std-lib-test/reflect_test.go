@@ -18,11 +18,14 @@ type TestStrc struct {
 
 func TestReflect(t *testing.T) {
 	t2 := TestStrc{
-		a: "",
-		b: "",
+		a: "1",
+		b: "2",
 	}
 	of := reflect.ValueOf(t2)
 	for i := 0; i < of.NumField(); i++ {
+	}
+	if of.IsZero() {
+		return
 	}
 }
 
@@ -75,7 +78,33 @@ func NewFuncOption(f func(*Options)) *funcOption {
 }
 
 func TestValueDate(t *testing.T) {
-	t2 := new(TestStrc)
-	of := reflect.ValueOf(t2)
-	fmt.Println(of)
+	strc := TestStrc{a: "1"}
+	bytes := make([]byte, 0)
+	of := reflect.ValueOf(bytes)
+	fmt.Println(of.Type().String())
+	personType := reflect.TypeOf(strc)
+	filedName, isOk := personType.FieldByName("Name")
+	if isOk {
+		fmt.Println("FiledName =", filedName.Name, "Type =", filedName.Type, "Tag =", filedName.Tag)
+	} else {
+		fmt.Println("Filed Name not exist")
+	}
+}
+
+type Item struct {
+	Name string
+	Age  int
+}
+
+func TestDeepEqual(t *testing.T) {
+	m := &Item{
+		Name: "1",
+		Age:  0,
+	}
+	n := &Item{
+		Name: "1",
+		Age:  0,
+	}
+
+	fmt.Println(reflect.DeepEqual(m, n))
 }

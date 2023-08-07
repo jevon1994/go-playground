@@ -14,7 +14,7 @@ Middleware & bootstrapper designed for [gin-gonic/gin](https://github.com/gin-go
 
 ```shell
 go get github.com/rookie-ninja/rk-boot/v2
-go get github.com/rookie-ninja/rk-gin/v2
+go get github.com/rookie-ninja/rk-web/v2
 ```
 
 ## Quick start
@@ -24,7 +24,7 @@ go get github.com/rookie-ninja/rk-gin/v2
 ```yaml
 ---
 gin:
-  - name: rk-demo
+  - name: rpc
     port: 8080
     enabled: true
     commonService:
@@ -63,7 +63,7 @@ import (
 
 // @title Swagger Example API
 // @version 1.0
-// @description This is a sample rk-demo server.
+// @description This is a sample.proto rpc server.
 // @termsOfService http://swagger.io/terms/
 
 // @securityDefinitions.basic BasicAuth
@@ -79,7 +79,7 @@ func main() {
 	boot := rkboot.NewBoot()
 
 	// Register handler
-	entry := rkgin.GetGinEntry("rk-demo")
+	entry := rkgin.GetGinEntry("rpc")
 	entry.Router.GET("/v1/greeter", Greeter)
 
 	// Bootstrap

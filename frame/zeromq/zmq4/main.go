@@ -72,6 +72,7 @@ func main() {
 	//go publish()
 	//fmt.Println("sub")
 	//subscribe()
-	pub(5566, "test-zmq")
-	go sub(5566, "test-zmq")
+	go sub(5556, "test-zmq")
+	pub(5556, "test-zmq")
+
 }

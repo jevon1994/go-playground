@@ -12,7 +12,7 @@ func main() {
 			"message": "pong",
 		})
 	})
-	router.InitUserRouter(r.Group("rk-gin"))
+	router.InitUserRouter(r.Group("rk-web"))
 	r.Run() // listen and serve on 0.0.0.0:8080 (for windows "localhost:8080")
 
 }

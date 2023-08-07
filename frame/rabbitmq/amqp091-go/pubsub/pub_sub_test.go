@@ -5,6 +5,6 @@ import (
 )
 
 func TestPubSub(t *testing.T) {
-	//producer.pub()
-	//consumer.sub()
+	producer.pub()
+	consumer.sub()
 }

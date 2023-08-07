@@ -18,6 +18,7 @@ import (
 )
 
 func main() {
+	BuildConfig()
 	//if len(os.Args) < 2 {
 	//	fmt.Println("resource missing")
 	//	return

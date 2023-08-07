@@ -1,15 +1,20 @@
 package algorithms
 
+import (
+	"fmt"
+	"testing"
+)
+
 type LRUCache struct {
 	Cap   int
-	Hash  map[interface{}]*Node
+	Hash  map[int]*Node
 	Cache *DoubleList
 }
 
-func Constructor(capacity int) *LRUCache {
-	return &LRUCache{
+func Constructor(capacity int) LRUCache {
+	return LRUCache{
 		Cap:   capacity,
-		Hash:  make(map[interface{}]*Node),
+		Hash:  make(map[int]*Node),
 		Cache: NewDoubleList(),
 	}
 }
@@ -24,13 +29,13 @@ func (this *LRUCache) Get(key int) int {
 }
 
 func (this *LRUCache) Put(key int, value int) {
-	node, ok := this.Hash[key]
+	_, ok := this.Hash[key]
 	if ok {
 		this.deleteKey(key)
 		this.addRecently(key, value)
 		return
 	}
-	if this.Cap == this.Cache.Size {
+	if this.Cap == this.Cache.size() {
 		this.removeLeastRecently()
 
 	}
@@ -58,8 +63,9 @@ func (this *LRUCache) removeLeastRecently() {
 
 func (this *LRUCache) deleteKey(key int) {
 	node := this.Hash[key]
-	delete(this.Hash, key)
 	this.Cache.remove(node)
+	delete(this.Hash, key)
+
 }
 
 type Node struct {
@@ -85,18 +91,18 @@ func NewDoubleList() *DoubleList {
 func (d *DoubleList) addLast(n *Node) {
 	n.Next = d.Tail
 	n.Prev = d.Tail.Prev
-	d.Tail.Next = n
-	d.Tail = n
+	d.Tail.Prev.Next = n
+	d.Tail.Prev = n
 	d.Size++
 }
 
 func (d *DoubleList) removeFirst() *Node {
-	if d.Head == d.Tail {
+	first := d.Head.Next
+	if first == d.Tail {
 		return nil
 	}
-	next := d.Head.Next
-	d.remove(next)
-	return next
+	d.remove(first)
+	return first
 }
 
 func (d *DoubleList) remove(n *Node) {
@@ -107,4 +113,24 @@ func (d *DoubleList) remove(n *Node) {
 
 func (d *DoubleList) size() int {
 	return d.Size
+}
+
+func TestLRU(t *testing.T) {
+	//cache1 := Constructor(1)
+	//cache1.Put(2, 1)
+	//fmt.Println(cache1.Get(2))
+	//cache1.Put(3, 2)
+	//fmt.Println(cache1.Get(2))
+	//fmt.Println(cache1.Get(3))
+
+	constructor := Constructor(2)
+	constructor.Put(1, 1)
+	constructor.Put(2, 2)
+	fmt.Println(constructor.Get(1))
+	constructor.Put(3, 3)
+	fmt.Println(constructor.Get(2))
+	constructor.Put(4, 4)
+	fmt.Println(constructor.Get(1))
+	fmt.Println(constructor.Get(3))
+	fmt.Println(constructor.Get(4))
 }

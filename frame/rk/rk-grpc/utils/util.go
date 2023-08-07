@@ -1,4 +1,4 @@
-package main
+package utils
 
 import (
 	zmq "github.com/pebbe/zmq4"
@@ -21,7 +21,7 @@ type (
 	}
 
 	Parser interface {
-		Parse(data [][]byte)
+		Parse(data []byte)
 	}
 )
 
@@ -62,7 +62,8 @@ func (this *ZmqSubscriber) Run() {
 
 	nextHeartbeatCheck := time.Now().Add(this.HeartbeatCheckInterval)
 	for {
-		data, err := socket.RecvMessageBytes(zmq.DONTWAIT)
+		data, err := socket.RecvBytes(zmq.DONTWAIT)
+		data = data[len(""):]
 		if err != nil {
 			time.Sleep(this.RecvTimeout)
 		} else if len(data) != 2 {

@@ -1,5 +1,6 @@
 package main
 
+import "C"
 import (
 	"fmt"
 )
@@ -39,8 +40,11 @@ func (b *Bird) Walk() {
 	fmt.Println("I am walking! , bird")
 }
 
+var m = make([]interface{}, 0)
+
 func main() {
 	b := new(Duck)
 	DuckDance(b)
-	fmt.Print(&b)
+	fmt.Print(len(m))
+
 }

@@ -16,7 +16,7 @@ import (
 
 // @title Swagger Example API
 // @version 1.0
-// @description This is a sample rk-demo server.
+// @description This is a sample.proto rpc server.
 // @termsOfService http://swagger.io/terms/
 
 // @securityDefinitions.basic BasicAuth

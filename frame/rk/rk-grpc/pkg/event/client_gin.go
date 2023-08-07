@@ -1,4 +1,4 @@
-package client
+package event
 
 import (
 	"context"
@@ -7,50 +7,44 @@ import (
 	"github.com/gin-gonic/gin"
 	"log"
 	"net/http"
-	se "rk-grpc/pkg/event"
 )
 
 type StreamGinServiceClient struct {
-	*se.RequestEventBus
+	*AbstractStreamServiceClient
 	client.Client
 }
 
 func NewStreamGinServiceClient() *StreamGinServiceClient {
-
 	c, err := cloudevents.NewClientHTTP()
 	if err != nil {
 		log.Fatalf("failed to create client, %v", err)
 	}
 
-	se.ReqBus = se.InitRequestEventBus()
-	return &StreamGinServiceClient{se.ReqBus,
+	ReqBus = InitRequestEventBus()
+	return &StreamGinServiceClient{&AbstractStreamServiceClient{ReqBus},
 		c}
 }
 
 func (client *StreamGinServiceClient) InitEngineofGin(engine *gin.Engine) {
-	engine.Use(se.ParseEvent())
+	engine.Use(ParseEvent())
 	engine.POST(STREAM_HANDLER_URI, client.Handle)
-}
-
-func (client *StreamGinServiceClient) Poll(ctx context.Context, out *StreamPushRequest) (Response, error) {
-	panic("11")
 }
 
 func (client *StreamGinServiceClient) Push(ctx context.Context, out *StreamPushRequest) (Response, error) {
 	// Create an Event.
-	event, cetx := se.NewEventFromStreamPushRequest(ctx, out)
-	event.SetData(cloudevents.ApplicationJSON, out.Bytes)
+	reqEvent, cetx, err := NewEventFromStreamPushRequest(ctx, out)
+	reqEvent.SetData(cloudevents.ApplicationJSON, map[string][]byte{"evetdata": out.Data})
 	// Send that Event.
-	if result := client.Send(cetx, event); cloudevents.IsUndelivered(result) {
-		log.Fatalf("failed to send, %v", result)
+	if result := client.Send(cetx, reqEvent); cloudevents.IsACK(result) {
+		log.Printf("send success, %v", result)
 	} else {
-		log.Printf("sent: %v", event)
+		log.Fatalf("failed to send, %v", result)
 	}
 	return Response{
 		Code:    "00000",
 		Message: "send event success",
-		Data:    event.ID(),
-	}, nil
+		Data:    reqEvent.ID(),
+	}, err
 }
 
 //${biz}/api/v1/stream/handler
@@ -66,8 +60,8 @@ func (client *StreamGinServiceClient) Push(ctx context.Context, out *StreamPushR
 // @Success 200 {object} Response
 // @Router /api/v1/stream/handler [post]
 func (client *StreamGinServiceClient) Handle(ctx *gin.Context) {
-	event, _ := cloudevents.NewEventFromHTTPRequest(ctx.Request)
-	se.ReqBus.Bus.Publish(event.Type(), event)
+	reqEvent, _ := cloudevents.NewEventFromHTTPRequest(ctx.Request)
+	ReqBus.Bus.Publish(reqEvent.Type(), reqEvent)
 	ctx.JSON(http.StatusOK, &Response{
 		Message: "call back success",
 		Code:    "00000",

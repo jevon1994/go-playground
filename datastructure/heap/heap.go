@@ -15,6 +15,64 @@ func NewHeap(cap int) *Heap {
 	return &Heap{i, 0, cap}
 }
 
+// arr[1] as root
+func (h *Heap) parent(index int) int {
+	return index / 2
+}
+
+func (h *Heap) left(index int) int {
+	return index * 2
+}
+
+func (h *Heap) right(index int) int {
+	return index*2 + 1
+}
+
+func (h *Heap) up(index int) {
+	for index > 1 && h.less(h.parent(index), index) {
+		h.swap(h.parent(index), index)
+	}
+}
+
+func (h *Heap) swap(index1, index2 int) {
+	h.Data[index1] ^= h.Data[index2]
+	h.Data[index2] ^= h.Data[index1]
+	h.Data[index1] ^= h.Data[index2]
+}
+
+func (h *Heap) down(index int) {
+	for h.left(index) <= h.Size {
+		max := h.left(index)
+		if h.right(index) <= h.Size && h.less(max, h.right(index)) {
+			max = h.right(index)
+		}
+		if h.less(max, index) {
+			break
+		}
+		h.swap(index, max)
+		index = max
+	}
+}
+
+func (h *Heap) less(index1, index2 int) bool {
+	return h.Data[index1] < h.Data[index2]
+}
+
+func (h *Heap) InsertWithUp(val int) {
+	h.Size += 1
+	h.Data[h.Size] = val
+	h.up(h.Size)
+}
+
+func (h *Heap) DeleteWithDown(index int) int {
+	max := h.Data[1]
+	h.swap(index, 1)
+	h.Data[h.Size] = -1
+	h.Size--
+	h.down(1)
+	return max
+}
+
 func (h *Heap) Insert(val int) {
 	h.Size += 1
 	i := h.Size

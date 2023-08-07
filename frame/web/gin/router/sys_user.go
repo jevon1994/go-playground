@@ -3,7 +3,7 @@ package router
 import (
 	"github.com/gin-gonic/gin"
 	"go-palyground/frame/web/gin/middleware"
-	v1 "go-palyground/frame/web/rk-gin/api/v1"
+	v1 "go-palyground/frame/web/rk-web/api/v1"
 )
 
 func InitUserRouter(router *gin.RouterGroup) (R gin.IRoutes) {

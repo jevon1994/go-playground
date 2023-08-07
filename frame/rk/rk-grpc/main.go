@@ -10,10 +10,11 @@ import (
 	_ "embed"
 	"fmt"
 	_ "github.com/rookie-ninja/rk-boot/gf"
-	rkboot "github.com/rookie-ninja/rk-boot/v2"
 	rkentry "github.com/rookie-ninja/rk-entry/v2/entry"
+	rkgrpc "github.com/rookie-ninja/rk-grpc/v2/boot"
+	"net/http"
 	"os"
-	proto "rk-grpc/api/gen/v1"
+	"rk-grpc/cmd"
 )
 
 //go:embed boot.yaml
@@ -32,50 +33,53 @@ func init() {
 }
 
 func main() {
+	cmd.InitZmq()
+	cmd.InitTask()
+	bootstrap()
+}
+
+func bootstrap() {
 	// Bootstrap basic entries from rk-boot config.
 	//rkentry.BootstrapPluginEntryFromYAML(boot)
 	// Set REGION=beijing
 	os.Setenv("REGION", "test")
 
 	// Create a new boot instance.
-	boot := rkboot.NewBoot()
-
-	config := rkentry.GlobalAppCtx.GetConfigEntry("demo").Viper.GetString("demo")
-	// Load config which is config/beijing.yaml
-	fmt.Println(config)
-
-	// Bootstrap
-	boot.Bootstrap(context.Background())
-
-	// Wait for shutdown sig
-	boot.WaitForShutdownSig(context.Background())
+	//boot := rkboot.NewBoot()
+	//
+	//config := rkentry.GlobalAppCtx.GetConfigEntry("demo").Viper.GetString("demo")
+	//// Load config which is config/beijing.yaml
+	//fmt.Println(config)
+	//
+	//// Bootstrap
+	//boot.Bootstrap(context.Background())
+	//
+	//// Wait for shutdown sig
+	//boot.WaitForShutdownSig(context.Background())
 
 	//// Bootstrap rk-grpc entry from rk-boot config
-	//res := rkgrpc.RegisterGrpcEntryYAML(boot)
-	//
-	//// Get GrpcEntry
-	//grpcEntry := res["greeter"].(*rkgrpc.GrpcEntry)
-	//// Register gRPC server
-	//grpcEntry.AddRegFuncGrpc(func(server *grpc.Server) {
-	//	proto.RegisterGreeterServer(server, &GreeterServer{})
-	//})
-	//// Register rk-grpc-gateway func
-	//grpcEntry.AddRegFuncGw(proto.RegisterGreeterHandlerFromEndpoint)
-	//
-	//// Bootstrap rk-grpc entry
-	//grpcEntry.Bootstrap(context.Background())
-	//
-	//// Wait for shutdown signal
-	//rkentry.GlobalAppCtx.WaitForShutdownSig()
-	//
-	//// Interrupt rk-gin entry
+	res := rkgrpc.RegisterGrpcEntryYAML(boot)
+
+	// Get GrpcEntry
+	grpcEntry := res["greeter"].(*rkgrpc.GrpcEntry)
+	// Register gRPC server
+	m := &MyHandler{}
+	grpcEntry.HttpMux.Handle("/v2/ss", m)
+
+	cmd.InitGrpc(grpcEntry)
+	// Bootstrap rk-grpc entry
+	grpcEntry.Bootstrap(context.Background())
+	// Wait for shutdown signal
+	rkentry.GlobalAppCtx.WaitForShutdownSig()
+
+	//// Interrupt rk-web entry
 	//grpcEntry.Interrupt(context.Background())
 }
 
-// GreeterServer Implementation of GreeterServer.
-type GreeterServer struct{}
+// 自定义的处理器
+type MyHandler struct{}
 
-// Greeter Handle Greeter method.
-func (server *GreeterServer) Greeter(context.Context, *proto.GreeterRequest) (*proto.GreeterResponse, error) {
-	return &proto.GreeterResponse{}, nil
+// 实现 http.Handler 接口的 ServeHTTP 方法
+func (h MyHandler) ServeHTTP(w http.ResponseWriter, r *http.Request) {
+	fmt.Fprintln(w, "Hello, World!")
 }
